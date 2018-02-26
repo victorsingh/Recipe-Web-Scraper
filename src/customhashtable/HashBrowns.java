@@ -1,3 +1,4 @@
+package customhashtable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -27,6 +28,6 @@ public class HashBrowns {
   
   public FoodHashTable getFoodTable(String s) {
     return FoodTable.get(s);
-  } 
+  }
 
 }
