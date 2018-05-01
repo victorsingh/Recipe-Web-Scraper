@@ -6,18 +6,18 @@ import java.util.Hashtable;
 import java.util.Set;
 
 public class FoodHashTable {
-  Hashtable<String,RecipieObject> RecipieTable;
+  Hashtable<String,RecipeObject> RecipeTable;
 
   public FoodHashTable() {
-    RecipieTable = new Hashtable();
+    RecipeTable = new Hashtable<String, RecipeObject>();
   }
   
   public void addFoodType(String aft, String chef, String preptime, String directions, String rating ) {
-    RecipieTable.put(aft, new RecipieObject(aft, preptime, directions, rating));
+    RecipeTable.put(aft, new RecipeObject(aft, preptime, directions, rating));
   }
   
-  public RecipieObject getFood(String gfs) {
-     return RecipieTable.get(gfs);
+  public RecipeObject getFood(String gfs) {
+     return RecipeTable.get(gfs);
   }
   
 }

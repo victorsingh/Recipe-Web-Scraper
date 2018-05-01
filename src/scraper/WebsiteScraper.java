@@ -2,7 +2,9 @@ package scraper;
 
 import java.io.BufferedReader;
 
-public class WebsiteScraper implements Scraper{
+import javax.naming.directory.SearchControls;
+
+public class WebsiteScraper implements Scraper {
   
   private String URL;
   private BufferedReader MARKUP;
@@ -19,24 +21,34 @@ public class WebsiteScraper implements Scraper{
   @Override
   public void runScraper(String url) throws Exception {
     // TODO Auto-generated method stub
-    BufferedReader reader = WebpageScraper.read("https://www.foodnetwork.com/search/pepper-pot-");
+    BufferedReader reader = WebpageScraper.read(url);
     System.out.println(reader);
     this.MARKUP = reader;
     return;
   }
 
   @Override
-  public void getMarkup() throws Exception {
+  public void getMarkup(String level) throws Exception {
     // TODO Auto-generated method stub
     String line = this.MARKUP.readLine();
-    
+    String cachedMarkup = "";
     while (line != null) {
-      
-      System.out.println(line);
-      
+      cachedMarkup = cachedMarkup + line;
       line = this.MARKUP.readLine();
-    
      } // while
+    if (level == "high"){
+      RecipeScraper getResults = new RecipeScraper(cachedMarkup);
+    }
+    else if(level == "low"){
+      RecipeScraper.furtherBeyond(cachedMarkup);
+    }
+  }
+
+  public void getSSMarkup(){
+    
+  }
+   
+  public void generateImage() {
     
   }
 

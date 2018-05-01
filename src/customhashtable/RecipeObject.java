@@ -6,14 +6,14 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Set;
 
-public class RecipieObject {
+public class RecipeObject {
   private String title, chef, prepTime, directions;
   
-  RecipieObject(){
+  RecipeObject(){
     
   }
   
-  RecipieObject(String t, String c, String pT, String d){
+  RecipeObject(String t, String c, String pT, String d){
     title = t;
     chef = c;
     prepTime = pT;

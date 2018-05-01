@@ -1,0 +1,10 @@
+Instructions: 
+In root directory of project: run javac launcher.java
+
+Next run 
+
+java launcher -output -input -c
+
+note: food.txt is our output file
+
+-c is a special flag used for reading text files 
