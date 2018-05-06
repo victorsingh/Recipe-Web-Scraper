@@ -39,8 +39,8 @@ public class launcher extends Application {
     
     x.addNewFood("Pasta");
     x.getFoodTable("Pasta").addFoodType("Beef Ravioli", "Guy Fierei", "30 mins", "Throw pasta in hot water", "3.5");
-    x.addNewFood("Curry");
-    x.getFoodTable("Curry").addFoodType("Chicken Curry", "Singh is king", "23 mins", "curry all the thigns", "2.3");
+    x.addNewFood("Chef Victor");
+    x.getFoodTable("Fish").addFoodType("Artic char", "Fake Salmon(jk)", "23 mins", "Recipe learned at work", "3.3");
   }
 
   public static void testWebScraper() throws Exception {
@@ -66,13 +66,13 @@ public class launcher extends Application {
  }
 
   public static void main(String[] args) throws Exception {
-    launch(args);
-    SampleController x = new SampleController();
-    x.increment();
+    // launch(args);
+    // SampleController x = new SampleController();
+    // x.increment();
 //    Scanner victor = new Scanner(System.in);
 //    System.out.println(victor.nextLine());
  
-    // HashBrowns x = new HashBrowns();
+    HashBrowns x = new HashBrowns();
     // testHashTable(x);
     
 //    testWebScraper();
@@ -81,7 +81,7 @@ public class launcher extends Application {
      * example: java ./launcher -input -f Pizza -input -r Pizza Pepperioni_Pizza Bobby Flay 20_mins Stringwithdirections 3
      */
 
-    // testCLIParser(args, x);    
+    testCLIParser(args, x);    
   }
 
 }

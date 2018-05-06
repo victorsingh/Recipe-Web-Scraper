@@ -6,9 +6,3 @@ Flay
 Stringwithdirections 
 3
 
-Curry
-Chicken_Curry
-Daijeet Singh
-23_mins
-Curry all the things
-3

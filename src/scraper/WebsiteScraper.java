@@ -4,12 +4,15 @@ import java.io.BufferedReader;
 
 import javax.naming.directory.SearchControls;
 
-public class WebsiteScraper implements Scraper {
+import customhashtable.RecipeObject;
+
+public class WebsiteScraper {
   
   private String URL;
   private BufferedReader MARKUP;
   
   public WebsiteScraper(String url) throws Exception{
+    System.out.println(url);
      this.URL = url;
      runScraper(url);
   }
@@ -18,7 +21,6 @@ public class WebsiteScraper implements Scraper {
     return URL;
   }
 
-  @Override
   public void runScraper(String url) throws Exception {
     // TODO Auto-generated method stub
     BufferedReader reader = WebpageScraper.read(url);
@@ -27,8 +29,7 @@ public class WebsiteScraper implements Scraper {
     return;
   }
 
-  @Override
-  public void getMarkup(String level) throws Exception {
+  public RecipeObject[] getMarkup(String level) throws Exception {
     // TODO Auto-generated method stub
     String line = this.MARKUP.readLine();
     String cachedMarkup = "";
@@ -38,10 +39,27 @@ public class WebsiteScraper implements Scraper {
      } // while
     if (level == "high"){
       RecipeScraper getResults = new RecipeScraper(cachedMarkup);
+      return getResults.foodNamehigh;
     }
-    else if(level == "low"){
+    else {
+      RecipeScraper getResults = new RecipeScraper(cachedMarkup);
+
       RecipeScraper.furtherBeyond(cachedMarkup);
+      return getResults.foodNamehigh;
     }
+  }
+
+  public static String justGetMarkUp(String url) throws Exception{
+    System.out.println("You have chosen "+ url);
+    BufferedReader reader = WebpageScraper.read("https://"+url);
+    String line = reader.readLine();
+    String cachedMarkup = "";
+    while (line != null) {
+      cachedMarkup = cachedMarkup + line;
+      line = reader.readLine();
+     } // while
+     System.out.println("Done");
+     return cachedMarkup;
   }
 
   public void getSSMarkup(){

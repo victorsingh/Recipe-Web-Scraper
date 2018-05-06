@@ -3,15 +3,18 @@ package parser.cli;
 import java.io.IOException;
 
 import customhashtable.HashBrowns;
+import customhashtable.RecipeObject;
 import filecreator.SimpleFile;
+import scraper.RecipeScraper;
 import scraper.WebsiteScraper;
 import java.util.Scanner;
+import customhashtable.FoodHashTable;
 
 public class CLIParser {
   private static boolean vflag = false;
   private static HashBrowns preMadeTable;
   private static SimpleFile file;
-
+  private static HashBrowns table = new HashBrowns();
   /**
    * 
    * @param {String[]} cliArgs
@@ -23,6 +26,7 @@ public class CLIParser {
     preMadeTable = x;
     int i = 0;
     String arg;
+    boolean living = false;
     
     while (i < cliArgs.length && cliArgs[i].startsWith("-")) {
       
@@ -46,20 +50,64 @@ public class CLIParser {
           // getFileOutput(arg);
         }
         else if (arg.equals("-scrape")){
-          printScraper("first_arg");
+          while (true) {
+          System.out.println("Add or search?");
+          Scanner chooseAction = new Scanner(System.in);
+          String cAction = chooseAction.nextLine();
+          // chooseAction.close();
+          System.out.print(cAction);
+          if(cAction.equals("Search")){
+            searchHashTable();
+          }
+          else{
           System.out.println("Enter the food you want");
           Scanner food = new Scanner(System.in);
-          System.out.println(food.nextLine());
-          WebsiteScraper getFood = new WebsiteScraper("https://www.foodnetwork.com/search/pepper-pot-");
-          getFood.getMarkup("high");
+          String foodTEXT = food.nextLine();
+          // food.close();
+          System.out.println(foodTEXT);
+          if(foodTEXT == "EXIT"){
+            break;
+          }
+          WebsiteScraper getFood = new WebsiteScraper("https://www.foodnetwork.com/search/"+foodTEXT+"-");
+          RecipeObject[] parseData = getFood.getMarkup("high");
+          System.out.println(parseData[0].title + "dlkfjsdlkf");
+          for(RecipeObject data : parseData){
+            System.out.println(data.getTitle() + " by "+ data.getChef());
+          }
           System.out.println("Which one do you want?");
           Scanner pickone = new Scanner(System.in);
-          System.out.println(food.nextLine());
-          WebsiteScraper getType = new WebsiteScraper("https://www.foodnetwork.com/search/pepper-pot-");
-          getType.getMarkup("low");
+          RecipeObject chosenOne = parseData[Integer.parseInt(pickone.nextLine())];
+          // pickone.close();
+          String justMarkup = WebsiteScraper.justGetMarkUp(chosenOne.getURL());
+
+          String directions = RecipeScraper.furtherBeyond(justMarkup);
+          String ingredients = RecipeScraper.getIngredients(justMarkup);
+          if(table.getFoodTable(foodTEXT) == null){
+          table.addNewFood(foodTEXT);
+          }
+          table.getFoodTable(foodTEXT).addFoodType(
+            chosenOne.getTitle(), 
+            chosenOne.getChef(), 
+            " ", 
+            directions, 
+            ingredients 
+            );
+
+          System.out.println("You've added" + chosenOne.getTitle() + " to the hash table");
+          SimpleFile.write(
+            foodTEXT,
+            chosenOne.getTitle(), 
+            chosenOne.getChef(), 
+            " ", 
+            directions, 
+            ingredients 
+            );
+        }
+      }
+
           // should i add this to the hash table at this point???
 
-          // also store in file
+          // also store in file afterwards
         }
         // use this type of check for a series of flag arguments
         else {
@@ -73,16 +121,19 @@ public class CLIParser {
         System.out.println("Success!");
     
    }
-  
-  public static void printScraper(String arg){
-    /**
-     * Scraper -> Asks for recipie -> then asks which of the recipies to choose from
-     * If no results are found, then say error and try again
-     */
-    Scanner victor = new Scanner(System.in);
-    System.out.println(victor.nextLine());
 
-  }
+   public static void searchHashTable(){
+    System.out.println("What do you want to search for?");
+    Scanner thingToSearchfor = new Scanner(System.in);
+    FoodHashTable copyTable = table.getFoodTable(thingToSearchfor.nextLine());
+    if(copyTable != null){
+      // Scanner thingToSearchfor = new Scanner(System.in);
+      for(String val: copyTable.RecipeTable.keySet()){
+        System.out.print(val);
+        System.out.println(copyTable.RecipeTable.get(val).getTitle());
+      }
+    }
+   }
 
   
   public static void isVerbose() {
@@ -91,43 +142,6 @@ public class CLIParser {
         vflag = true;
         System.out.println("Verbose: " + vflag);
   }
-  
-  // public static int getFileInput(int index, String[] cliArgs) throws IOException {
-  //   String addType = cliArgs[index++];
-  //   if(getFileType(addType) == ".html") {
-  //     String myHtmlFile = new WebsiteScraper();
-  //     myHtmlFile.getinput();
-  //   }
-    
-  // }
-  
-  // public static int getFileOutput(int index, String[] cliArgs) throws IOException {
-  //   String addType = cliArgs[index++];
-  //   if(getFileType(addType) == ".html") {
-  //     String myHtmlFile = new WebsiteScraper(addType);
-  //     myHtmlFile.getinput()
-  //   }
-  //   if(getFileType(addType) == ".jpg") {
-  //     String myHtmlFile = new WebsiteScraper(Type);
-  //     myHtmlFile.getinput()
-  //   }
-  //   if(getFileType(addType) == ".pdf") {
-  //     String myHtmlFile = new WebsiteScraper(addType);
-  //     myHtmlFile.getOuput()
-  //   }
-  //   if(getFileType(addType) == ".png") {
-  //     String myHtmlFile = new WebsiteScraper(addType);
-  //     myHtmlFile.getOutput()
-  //   }
-  // }
-  
-  // public static int getFileInput(int index, String[] cliArgs) throws IOException {
-  //   String addType = cliArgs[index++];
-  //   if(getFileType(addType) == ".html") {
-  //     String myHtmlFile = new WebsiteScraper();
-  //     myHtmlFile.getinput()
-  //   }
-  // }
   
   public static int isInput(int index, String[] cliArgs, HashBrowns table) throws IOException {
     //boolean isAdd = Boolean.parseBoolean(cliArgs[index++]);

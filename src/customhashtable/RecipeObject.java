@@ -7,17 +7,24 @@ import java.util.Hashtable;
 import java.util.Set;
 
 public class RecipeObject {
-  private String title, chef, prepTime, directions;
-  
-  RecipeObject(){
-    
+  public String title, chef, prepTime, directions, ingrediants, url;
+
+  public RecipeObject(){
+
   }
   
-  RecipeObject(String t, String c, String pT, String d){
+  public RecipeObject(String t, String c, String u){
+    title = t;
+    chef = c;
+    url = u;
+  }
+  
+  public RecipeObject(String t, String c, String pT, String d, String i){
     title = t;
     chef = c;
     prepTime = pT;
     directions = d;
+    ingrediants = i;
   }
   
   public String getTitle() {
@@ -34,6 +41,14 @@ public class RecipeObject {
   
   public String directions() {
     return directions;
+  }
+    
+  public String ingrediants() {
+    return ingrediants;
+  }
+
+  public String getURL(){
+    return url;
   }
   
 }

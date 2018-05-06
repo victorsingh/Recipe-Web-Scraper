@@ -8,3 +8,16 @@ java launcher -output -input -c
 note: food.txt is our output file
 
 -c is a special flag used for reading text files 
+
+
+For Scraping:
+
+java launcher -scrape
+
+add: add a new recipe 
+search: search for new recipe on food network
+
+note: use search before add
+
+Given a list of recipes 
+enter from 0 - 9 which one you want
