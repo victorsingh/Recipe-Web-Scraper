@@ -79,7 +79,12 @@ public class RecipeScraper {
     String result = passFromMarkup.split("<div class=\"o-Method__m-Body\">")[1].split("</div>")[0].replace("<p>","").replace("</p>", "").replaceAll("\\s\\s+","");
     System.out.println(passFromMarkup.split("<div class=\"o-Method__m-Body\">")[1].split("</div>")[0].replace("<p>","").replace("</p>", "").replaceAll("\\s\\s+",""));
     // System.out.println(passFromMarkup.split("<div class=\"o-Ingredients__m-Body\">")[1].split("</div>")[0].replace("<p>","").replace("</p>", "").replaceAll("\\s\\s+",""));
-    return result;
+    if(result.split(">").length < 2){
+      return result;
+    }
+    else{
+      return result;
+    }
     // //iterate through ingredients
     // String ingrediants = getIngredients(passFromMarkup);
 
@@ -87,26 +92,33 @@ public class RecipeScraper {
 
   public static String getIngredients(String passFromMarkup){
     int index = 0;
+    String ourString = "";
     // System.out.println(passFromMarkup.split("<div class=\"o-Ingredients__m-Body\">")[1].split("</div>")[0]);
-    while(true) {
-      String[] searchString = passFromMarkup.split("<label class=\"o-Ingredients__a-ListItemText\" for=\"Ingredient0"+index+++"\">");
-      if(searchString.length < 2){
-        break;
-      }
-      // System.out.println(searchString[0]);
-      System.out.println(searchString[1].split("</label>")[0]);
-      return searchString[1].split("</label>")[0];
-      // String AUTHORNAME = getAuthor(searchString);
-      // if(AUTHORNAME == ""){
-      //   //NOT A VALID RECIPIE
-      //   continue;
-      // }
+    // while(true) {
+    //   String[] searchString = passFromMarkup.split("<label class=\"o-Ingredients__a-ListItemText\" for=\"Ingredient0"+index+++"\">");
+    //   String ss2 = passFromMarkup.split("recipeIngredient\": \\[")[1].split("]")[0];
+    //   System.out.println(ss2+ "dakljdsdlkfjsdklfjdsklfjklsfjsklfjdslkfjdsklfjdslkfjdslk");
+    //   if(searchString.length < 2){
+    //     break;
+    //   }
+    //   // System.out.println(searchString[0]);
+    //   System.out.println(searchString[1].split("</label>")[0] + "-------------------dlaskjfldsfsdkfjsdklfj");
+    //   // return searchString[1].split("</label>")[0];
+    //   ourString += searchString[1].split("</label>")[0];
+    //   // String AUTHORNAME = getAuthor(searchString);
+    //   // if(AUTHORNAME == ""){
+    //   //   //NOT A VALID RECIPIE
+    //   //   continue;
+    //   // }
       // String FOODNAME = getFoodName(searchString);
       // String URL = getRecipieUrl(searchString);
       // // String RATING = getRating(searchString);
+    //}
+    // String ss2 = passFromMarkup.split("recipeIngredient\": \\[")[1].split("]")[0];
 
-    }
-    return "";
+    System.out.println("--------"+ ourString);
+    return passFromMarkup.split("recipeIngredient\": \\[")[1].split("]")[0];
+
   }
 
 

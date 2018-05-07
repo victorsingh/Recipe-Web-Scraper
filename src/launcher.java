@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import view.MainViewController;
 
 
 /**
@@ -56,7 +57,7 @@ public class launcher extends Application {
   }
 
   public void start(Stage stage) throws Exception {
-    Parent root = FXMLLoader.load(getClass().getResource("launcher.view/MainView.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("view/MainView.fxml"));
  
      Scene scene = new Scene(root, 1270, 800);
  
@@ -66,7 +67,7 @@ public class launcher extends Application {
  }
 
   public static void main(String[] args) throws Exception {
-    // launch(args);
+    launch(args);
     // SampleController x = new SampleController();
     // x.increment();
 //    Scanner victor = new Scanner(System.in);
