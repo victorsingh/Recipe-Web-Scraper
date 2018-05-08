@@ -31,18 +31,18 @@ import view.MainViewController;
 
 public class launcher extends Application {
   
-  public static void testHashTable(HashBrowns x) {
-    x.addNewFood("Fried Chicken");
-  //  System.out.println(x.getFoodTable("Fried Chicken"));
-    x.getFoodTable("Fried Chicken").addFoodType("Southern Fried Chicken", "Ina Garten", "40 mins", "String with directions","5");
-    x.getFoodTable("Fried Chicken").addFoodType("Tomato Fried Chicken", "Ina Garten", "40 mins", "String with directions","5");
-   // System.out.println(x.getFoodTable("Fried Chicken").getFood("Southern Fried Chicken").prepTime());
+  // public static void testHashTable(HashBrowns x) {
+  //   x.addNewFood("Fried Chicken");
+  // //  System.out.println(x.getFoodTable("Fried Chicken"));
+  //   x.getFoodTable("Fried Chicken").addFoodType("Southern Fried Chicken", "Ina Garten", "40 mins", "String with directions","5");
+  //   x.getFoodTable("Fried Chicken").addFoodType("Tomato Fried Chicken", "Ina Garten", "40 mins", "String with directions","5");
+  //  // System.out.println(x.getFoodTable("Fried Chicken").getFood("Southern Fried Chicken").prepTime());
     
-    x.addNewFood("Pasta");
-    x.getFoodTable("Pasta").addFoodType("Beef Ravioli", "Guy Fierei", "30 mins", "Throw pasta in hot water", "3.5");
-    x.addNewFood("Chef Victor");
-    x.getFoodTable("Fish").addFoodType("Artic char", "Fake Salmon(jk)", "23 mins", "Recipe learned at work", "3.3");
-  }
+  //   x.addNewFood("Pasta");
+  //   x.getFoodTable("Pasta").addFoodType("Beef Ravioli", "Guy Fierei", "30 mins", "Throw pasta in hot water", "3.5");
+  //   x.addNewFood("Chef Victor");
+  //   x.getFoodTable("Fish").addFoodType("Artic char", "Fake Salmon(jk)", "23 mins", "Recipe learned at work", "3.3");
+  // }
 
   public static void testWebScraper() throws Exception {
       WebsiteScraper foodNetworks = new WebsiteScraper("https://www.foodnetwork.com/search/pepper-pot-");

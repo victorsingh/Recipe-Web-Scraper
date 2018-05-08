@@ -14,8 +14,8 @@ public class FoodHashTable {
     RecipeTable = new Hashtable<String, RecipeObject>();
   }
   
-  public void addFoodType(String aft, String chef, String preptime, String directions, String ingredients ) {
-    RecipeTable.put(aft, new RecipeObject(aft, chef, preptime, directions, ingredients));
+  public void addFoodType(String aft, String type, String chef, String preptime, String directions, String ingredients, String url ) {
+    RecipeTable.put(aft, new RecipeObject(type, aft, chef, preptime, directions, ingredients, url));
   }
   
   public RecipeObject getFood(String gfs) {

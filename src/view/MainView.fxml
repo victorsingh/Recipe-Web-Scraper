@@ -58,7 +58,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="2.2973, 0.6505" focusTraversable="true" prefHeight="814.0" prefWidth="990.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="4.0, 0.5" focusTraversable="true" prefHeight="814.0" prefWidth="990.0" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane style="-fx-background-color: E2C79A;">
           <children>
@@ -82,8 +82,8 @@
                         <Font name="Raleway" size="18.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="59.0" layoutY="228.0" prefHeight="58.0" prefWidth="184.0" style="-fx-background-color: white;" />
-                  <Label layoutX="75.0" layoutY="246.0" text="Pick your Recipe">
+                  <Pane layoutX="70.0" layoutY="295.0" prefHeight="58.0" prefWidth="184.0" style="-fx-background-color: white;" />
+                  <Label layoutX="86.0" layoutY="313.0" text="Pick your Recipe">
                      <font>
                         <Font name="Raleway" size="19.0" />
                      </font>
@@ -98,12 +98,12 @@
         </AnchorPane>
       <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" style="-fx-background-color: E2C79A;">
         <children>
-                  <Pane layoutX="41.0" layoutY="15.0" prefHeight="56.0" prefWidth="343.0" style="-fx-background-color: white;">
+                  <Pane layoutX="2.0" layoutY="14.0" prefHeight="56.0" prefWidth="343.0" style="-fx-background-color: white;">
                      <effect>
                         <DropShadow />
                      </effect>
                   </Pane>
-                  <Label layoutX="101.0" layoutY="23.0" text="Title of Recipe">
+                  <Label layoutX="67.0" layoutY="23.0" text="Title of Recipe">
                      <font>
                         <Font name="Raleway" size="31.0" />
                      </font>
@@ -113,18 +113,19 @@
                         <Label layoutX="44.0" layoutY="12.0" text="Ingredents" />
                      </children>
                   </Pane>
-                  <Pane layoutX="108.0" layoutY="500.0" prefHeight="41.0" prefWidth="147.0" style="-fx-background-color: EBC4F4;">
+                  <Pane layoutX="108.0" layoutY="500.0" prefHeight="41.0" prefWidth="165.0" style="-fx-background-color: EBC4F4;">
                      <children>
                         <Label layoutX="44.0" layoutY="12.0" text="Directions" />
                      </children>
                   </Pane>
                   <TextArea fx:id="ShowIngredients" editable="false" layoutX="82.0" layoutY="241.0" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
                   <TextArea fx:id="ShowDirections" editable="false" layoutX="82.0" layoutY="571.0" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
+                  <Button fx:id="saveButton" layoutX="297.0" layoutY="644.0" mnemonicParsing="false" onAction="#saveRecipe" style="-fx-background-color: #43AED7;" text="Save" textFill="#eeeeee" />
         </children>
       </AnchorPane>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" style="-fx-background-color: E2C79A;">
                <children>
-                  <Pane layoutX="91.0" layoutY="12.0" prefHeight="50.0" prefWidth="171.0" style="-fx-background-color: white;">
+                  <Pane layoutX="46.0" layoutY="14.0" prefHeight="50.0" prefWidth="171.0" style="-fx-background-color: white;">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -136,6 +137,13 @@
                         </Label>
                      </children>
                   </Pane>
+                  <ScrollPane fx:id="OptionsScroll1" layoutX="18.0" layoutY="139.0" prefHeight="234.0" prefWidth="224.0">
+                     <content>
+                        <AnchorPane fx:id="showSaved" minHeight="0.0" minWidth="0.0" prefHeight="275.0" prefWidth="198.0" />
+                     </content>
+                  </ScrollPane>
+                  <Button fx:id="selectSave" layoutX="102.0" layoutY="480.0" mnemonicParsing="false" onAction="#getValueFromSave" style="-fx-background-color: #43AED7;" text="Select" textFill="#fcfcfc" />
+                  <Button fx:id="removeSaved" layoutX="96.0" layoutY="546.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Remove" textFill="WHITE" />
                </children>
             </AnchorPane>
       </items>

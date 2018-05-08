@@ -7,7 +7,7 @@ import java.util.Hashtable;
 import java.util.Set;
 
 public class RecipeObject {
-  public String title, chef, prepTime, directions, ingrediants, url;
+  public String type, title, chef, prepTime, directions, ingrediants, url;
 
   public RecipeObject(){
 
@@ -19,12 +19,18 @@ public class RecipeObject {
     url = u;
   }
   
-  public RecipeObject(String t, String c, String pT, String d, String i){
+  public RecipeObject(String ty, String t, String c, String pT, String d, String i, String u){
+    type = ty;
     title = t;
     chef = c;
     prepTime = pT;
     directions = d;
     ingrediants = i;
+    url = u;
+  }
+
+  public String getType(){
+    return type;
   }
   
   public String getTitle() {

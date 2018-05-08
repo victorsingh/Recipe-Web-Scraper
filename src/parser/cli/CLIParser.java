@@ -15,18 +15,36 @@ public class CLIParser {
   private static HashBrowns preMadeTable;
   private static SimpleFile file;
   private static HashBrowns table = new HashBrowns();
+  private static boolean verified = false;
   /**
    * 
    * @param {String[]} cliArgs
    * @param {HashBrowns} x
    * @throws IOException 
    */
+  public static void checkauthwrapper() {
+    
+  }
   
   public static void processArguments(String[] cliArgs, HashBrowns x) throws Exception {
     preMadeTable = x;
     int i = 0;
     String arg;
     boolean living = false;
+    
+    // while (!verified) {
+    //   System.out.println("Press 0 to create an account, press 1 to log in, press 2 to run as guest");
+    //   Scanner authchoice = new Scanner(System.in);
+    //   String acthChoice = authchoice.nextLine();
+    //   if(checkauthwrapper(authChoice) == true) {
+    //     verified = true;
+    //   }
+    //   else {
+    //     continue;
+    //   }
+    // }
+
+
     
     while (i < cliArgs.length && cliArgs[i].startsWith("-")) {
       
@@ -86,6 +104,7 @@ public class CLIParser {
           table.addNewFood(foodTEXT);
           }
           table.getFoodTable(foodTEXT).addFoodType(
+            foodTEXT,
             chosenOne.getTitle(), 
             chosenOne.getChef(), 
             " ", 
@@ -160,7 +179,7 @@ public class CLIParser {
       String preptime = cliArgs[index++];
       String directions = cliArgs[index++];
       String rating = cliArgs[index++];
-      table.getFoodTable(foodType).addFoodType(title, chef, preptime, directions, rating);
+      table.getFoodTable(foodType).addFoodType(foodType, title, chef, preptime, directions, rating);
       System.out.println(table.getFoodTable(foodType).getFood(title).getTitle());
       SimpleFile.write(foodType, title, chef, preptime, directions, rating);
     }

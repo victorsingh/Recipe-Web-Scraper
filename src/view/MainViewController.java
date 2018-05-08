@@ -24,7 +24,6 @@ import javafx.scene.Scene;
 
 import java.net.IDN;
 
-// import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import customhashtable.HashBrowns;
 import scraper.RecipeScraper;
@@ -32,12 +31,14 @@ import scraper.RecipeScraper;
 public class MainViewController {
 
   ObservableList<String> items = FXCollections.observableArrayList("search");
-  // ObservableList<String> itemsS = FXCollections.observableArrayList("Ingredients");
-  ListView<String> list = new ListView<>(items);
-  // ListView<String> listSpecific = new ListView<>(itemsS);
+  ListView<String> list; //= new ListView<>();
   WebsiteScraper getFood;
   RecipeObject[] parseData;
   HashBrowns table = new HashBrowns();
+  RecipeObject potentialSave;
+  ListView<String> listSaved = new ListView<>();
+
+
   String foodTEXT;
 
 
@@ -75,9 +76,52 @@ public class MainViewController {
     private Color x4;
 
     @FXML
+    private Button selectSave;
+
+    @FXML
+    private AnchorPane showSaved;
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    private Button removeSaved;
+
+    @FXML
     void ExitApp(ActionEvent event) {
 
     }
+
+
+    @FXML
+    void removeFromSave(ActionEvent event) {
+      showSaved.getChildren().remove(listSaved.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    void saveRecipe(ActionEvent event) {
+      String nameofReci = potentialSave.getTitle();
+      String urlOfReci = potentialSave.getURL();
+      listSaved.getItems().add(potentialSave.getType() + ":" + potentialSave.getTitle());
+      showSaved.getChildren().addAll(listSaved);
+    }
+
+    @FXML
+    void getValueFromSave(ActionEvent event) throws Exception {
+      String[] chosenString = listSaved.getSelectionModel().getSelectedItem().split(":");
+      System.out.println(chosenString[0]+ "-------" + chosenString[1]);
+      String desiredUrl = table.getFoodTable(chosenString[0]).RecipeTable.get(chosenString[1]).getURL();
+      System.out.println(desiredUrl);
+      String justMarkup = WebsiteScraper.justGetMarkUp(desiredUrl);
+
+      String directions = RecipeScraper.furtherBeyond(justMarkup);
+      String ingredients = RecipeScraper.getIngredients(justMarkup);
+
+      ShowIngredients.setText(ingredients);
+      ShowDirections.setText(directions);
+
+    }
+
 
     @FXML
     void addToHash(ActionEvent event) throws Exception{
@@ -89,46 +133,37 @@ public class MainViewController {
 
       String directions = RecipeScraper.furtherBeyond(justMarkup);
       String ingredients = RecipeScraper.getIngredients(justMarkup);
-      // if(table.getFoodTable(foodTEXT) == null){
-      // table.addNewFood(foodTEXT);
-      // }
-      // table.getFoodTable(foodTEXT).addFoodType(
-      //   parseData[chosenString].getTitle(), 
-      //   parseData[chosenString].getChef(), 
-      //   " ", 
-      //   directions, 
-      //   ingredients 
-      //   );
+      if(table.getFoodTable(foodTEXT) == null){
+      table.addNewFood(foodTEXT);
+      }
+      table.getFoodTable(foodTEXT).addFoodType(
+        parseData[chosenString].getTitle(), 
+        foodTEXT,
+        parseData[chosenString].getChef(), 
+        " ", 
+        directions, 
+        ingredients,
+        chosenNode
+        );
+      // System.out.println(table.getFoodTable("apple").getFood(parseData[chosenString].getTitle()).getURL()+ "apppppppppple");
+      this.potentialSave = new RecipeObject(
+        foodTEXT,
+        parseData[chosenString].getTitle(), 
+        parseData[chosenString].getChef(), 
+        " ", 
+        directions, 
+        ingredients,
+        chosenNode
+        );
 
-        // ObservableList<String> itemsS = FXCollections.observableArrayList();
-
-        // Scene scene = new Scene(ShowIngredients, 300, 250);
         ShowIngredients.setText(ingredients);
         ShowDirections.setText(directions);
-
-        // System.out.println(ShowIngredients.getText()+ "get----");
-        // Text ingTxt = new Text(ingredients);
-        // ingTxt.wrappingWidthProperty().bind(ShowIngredients.widthProperty());
-        // ShowIngredients.setFitToWidth(true);
-        // ShowIngredients.setContent(new TextArea().appendText("heejfsklfjslkf"));
-   
-        // ObservableList<String> itemsS = FXCollections.observableArrayList("Ingredients");
-
-        // ListView<String> listSpecific = new ListView<>(itemsS);
-        // listSpecific.setMaxHeight(1000);
-        // // Text Ingredients = new Text(ingredients);
-        // listSpecific.getItems().add(ingredients);
-
-        // System.out.println(directions+ "-------------green");
-        // // System.out.println(listSpecific.get)
-        // listSpecific.setCellFactory(TextFieldListCell.forListView());
-        // listSpecific.setEditable(false);
-        // ingrtext.setText(ingredients);
-        // ShowIngredients.getChildren().add(new Text("\n\n\n"+directions));
     }
 
     @FXML
     void searchForRecipes(ActionEvent event) throws Exception {
+      showOptions.getChildren().removeAll(list);
+      list = new ListView<>();
       foodTEXT = foodtextbook.getText();
       if(foodtextbook.getText() == "") {
         System.out.println(foodtextbook.getText());
@@ -138,13 +173,7 @@ public class MainViewController {
         getFood = new WebsiteScraper("https://www.foodnetwork.com/search/"+foodTEXT+"-");
         parseData = getFood.getMarkup("high");
         System.out.println(parseData[0].getTitle());
-        // TableColumn table = new TableColumn("Options");
-        // table.setMinWidth(90);
-        // showOptions.setTopAnchor(list, 10.0);
-        // showOptions.setLeftAnchor(list, 10.0);
-        // showOptions.setRightAnchor(list, 65.0);
-        // // Button will float on right edge
-        // Button button = new Button("Add");
+        
         int i = 0;
         for(RecipeObject data: parseData){
           try{
@@ -155,12 +184,10 @@ public class MainViewController {
             break;
           }
         }
-
         list.setCellFactory(TextFieldListCell.forListView());
         list.setEditable(false);
         showOptions.getChildren().addAll(list);
         System.out.println(list.getSelectionModel().getSelectedItem());
-        // showOptions.getChildren().addAll(new Text("dads\n"),new Text("Heldasdlo\n"),new Text("Hedasdllo\n"),new Text("Heldasdlo\n"));
         wantMore.setDisable(false);
       }
     }
